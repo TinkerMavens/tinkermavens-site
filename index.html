@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tinker Mavens — Electronics, explained with care.</title>
+    <link rel="icon" href="TM_logo_small.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#c524fe',      /* Electric Purple */
+                        'primary-dark': '#a000d8', /* Hover / darker purple */
+                        'secondary': '#ffd300',    /* Acid Yellow */
+                        'secondary-dark': '#c7a400',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; 
+        }
+
+        /* DESIGN FIX: Increased size to 40px and used rgba for lighter lines to reduce eye strain/moire effect */
+        .graph-paper-bg {
+            background-color: #ffffff;
+            background-image: linear-gradient(to right, rgba(243, 244, 246, 0.8) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(243, 244, 246, 0.8) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .cloud-shape {
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform: rotate(-5deg); 
+            opacity: 0.5;
+            filter: blur(50px);
+            z-index: 0; /* TECHNICAL FIX: Ensure clouds stay behind content */
+            pointer-events: none; /* Prevent clicking on clouds */
+        }
+
+        .retro-window {
+            border: 4px solid #1f2937;
+            border-radius: 12px;
+            box-shadow: 10px 10px 0 0 #1f2937; 
+            overflow: hidden;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        /* CTA BUTTON STYLES */
+        .cta-primary {
+            transition: all 0.1s ease; /* Faster transition for button press feel */
+            box-shadow: 5px 5px 0 0 #1f2937;
+            border: 2px solid #1f2937;
+        }
+        .cta-primary:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0 0 #1f2937;
+            background-color: #a000d8; /* Merged hover color into class */
+        }
+        /* DESIGN FIX: Added Active State for tactile "click" feel */
+        .cta-primary:active {
+            transform: translate(0px, 0px);
+            box-shadow: 2px 2px 0 0 #1f2937;
+        }
+
+        .cta-secondary {
+            transition: all 0.1s ease;
+            box-shadow: 5px 5px 0 0 #d1d5db;
+            border: 2px solid #d1d5db;
+        }
+        .cta-secondary:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0 0 #d1d5db;
+        }
+        /* DESIGN FIX: Added Active State */
+        .cta-secondary:active {
+            transform: translate(0px, 0px);
+            box-shadow: 2px 2px 0 0 #d1d5db;
+        }
+        
+        .social-icon-link {
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+        .social-icon-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: #a000d8;
+        }
+    </style>
+</head>
+<body class="graph-paper-bg">
+
+<hr class="border-t-4 border-gray-900"/>
+
+<header class="bg-white p-4 shadow-xl sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="h-10">
+            <img alt="Tinker Mavens logo featuring the brand name in purple and yellow" class="h-full w-auto" src="TM_logo.png"/>
+        </div>
+        </div>
+</header>
+
+<hr class="border-t-4 border-gray-900"/>
+
+<section class="py-10 md:py-14 lg:py-16 relative overflow-hidden" id="top">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+    <div class="cloud-shape absolute top-0 left-0 w-80 h-80 bg-primary opacity-30 transform -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="cloud-shape absolute bottom-0 right-0 w-96 h-96 bg-secondary opacity-30 transform translate-x-1/2 translate-y-1/2 rotate-12"></div>
+
+    <div class="retro-window w-full">
+      <div class="bg-gray-900 text-white px-3 py-2 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div class="w-3 h-3 rounded-full bg-red-500 border border-gray-700"></div>
+          <div class="w-3 h-3 rounded-full bg-secondary border border-gray-700"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500 border border-gray-700"></div>
+          <span class="ml-4 text-xs sm:text-sm font-mono tracking-widest text-primary">TINKERMAVENS/LAUNCH.EXE</span>
+        </div>
+      </div>
+
+      <div class="p-5 sm:p-8 md:px-8 md:py-8 lg:px-10 lg:py-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-center">
+          <div class="md:pr-6">
+            <h1 class="text-3xl md:text-4xl lg:text-[2.6rem] font-extrabold text-gray-900 leading-tight mb-4">
+              Build electronics you actually understand.
+            </h1>
+
+            <p class="text-sm md:text-base text-gray-700 mb-6 max-w-xl">
+              If you’ve ever followed a tutorial and then felt stuck when something behaved unexpectedly, that moment isn’t failure. It’s where the interesting questions appear.
+            </p>
+
+            <p class="text-sm md:text-base text-gray-700 mb-6 max-w-xl">
+              Tinker Mavens is a space for beginners who want to slow down and look closely at what's happening inside their projects. The focus is on clear explanations that help you build confidence to design your own projects.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <a class="cta-primary bg-primary text-white font-bold py-3 px-8 rounded-lg text-base md:text-lg flex items-center justify-center"
+                 href="https://www.youtube.com/@TinkerMavens">
+                Start with a short video
+              </a>
+              <a class="cta-secondary bg-white text-gray-900 font-bold py-3 px-8 rounded-lg text-base md:text-lg flex items-center justify-center"
+                 href="#newsletter">
+                Get email updates
+              </a>
+            </div>
+          </div>
+
+          <div class="flex justify-center md:justify-end">
+            <div class="w-full max-w-2xl">
+                <img
+                    class="w-full h-auto rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+                    src="robot_car_hero.jpg" 
+                    alt="Close-up of a DIY robot car project with an HC-SR04 ultrasonic sensor, colorful wires, and microcontroller on a workbench."
+                />
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="border-t-4 border-gray-900"/>
+
+<section class="py-16 md:py-24 bg-white relative overflow-hidden" id="about">
+  <div class="cloud-shape absolute -bottom-20 -left-20 w-80 h-80 bg-primary opacity-25"></div>
+
+  <!-- CENTERING CONTAINER -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 flex justify-center">
+    
+    <!-- CONTENT BLOCK (always centered) -->
+    <div class="w-full max-w-4xl">
+      <div class="grid grid-cols-1 lg:grid-cols-7 gap-6 lg:gap-8 items-center">
+
+        <!-- Image -->
+        <div class="lg:col-span-3 flex justify-center">
+          <div class="w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] bg-gray-200">
+            <img
+              src="alexis.png"
+              alt="Alexis, founder of Tinker Mavens, smiling"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="lg:col-span-4 text-center lg:text-left">
+          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+            Hi — I’m Alexis.
+          </h2>
+
+          <p class="text-gray-700 text-base mb-4 max-w-xl mx-auto lg:mx-0">
+            For the past decade, I’ve taught mathematics, coding, and AI, with a focus on making difficult ideas understandable. My work has reached millions of learners through places like Google, Kaggle, Udacity, and Cohere.
+          </p>
+
+          <p class="text-gray-700 text-base mb-4 max-w-xl mx-auto lg:mx-0">
+            I believe beginners can understand complex ideas when they’re explained with care.          
+          </p>
+
+          <p class="text-gray-700 text-base mb-6 max-w-xl mx-auto lg:mx-0">
+            I created Tinker Mavens to help you approach electronics with curiosity and confidence.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="border-t-4 border-gray-900"/>
+
+<section class="py-14 md:py-24 bg-gray-100" id="definitions">
+<div class="max-w-4xl mx-auto px-4 sm:px-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="bg-white p-8 rounded-xl border-4 border-gray-900 shadow-[10px_10px_0_0_rgba(31,41,55,1)]">
+<h4 class="text-3xl md:text-4xl font-extrabold text-primary mb-2 flex items-baseline">
+                        TIN·KER
+                        <span class="text-lg text-gray-700 ml-3 font-mono">
+                            /ˈtɪŋkər/
+                        </span>
+</h4>
+<p class="text-xl font-bold text-gray-700 mb-4">
+<em class="not-italic text-secondary">*v.*</em> To experiment with.
+                    </p>
+<ol class="list-decimal list-inside text-gray-800 space-y-3 pl-2">
+<li>To improve a creation through playful and often messy experimentation.</li>
+<li>To build something simply for the joy of building.</li>
+</ol>
+</div>
+<div class="bg-white p-8 rounded-xl border-4 border-gray-900 shadow-[10px_10px_0_0_rgba(31,41,55,1)]">
+<h4 class="text-3xl md:text-4xl font-extrabold text-primary mb-2 flex items-baseline">
+                        MA·VEN
+                        <span class="text-lg text-gray-700 ml-3 font-mono">
+                            /ˈmeɪvən/
+                        </span>
+</h4>
+<p class="text-xl font-bold text-gray-700 mb-4">
+<em class="not-italic text-secondary">*n.*</em> A hands-on master.
+                    </p>
+<ol class="list-decimal list-inside text-gray-800 space-y-3 pl-2">
+<li>A maker whose knowledge is forged in projects and proven by results, not just theory.</li>
+<li>A confident creator with the skill to realize their own creations.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+
+<section class="py-16 md:py-24 bg-secondary text-gray-900 relative overflow-hidden" id="newsletter">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="max-w-2xl mx-auto">
+      <h4 class="text-3xl md:text-4xl font-extrabold mb-3 text-center">
+        Subscribe
+      </h4>
+      <p class="text-base md:text-lg text-gray-800 text-center mb-8">
+        Tinker Mavens is an ongoing collection of videos and explanations about electronics — shared as it’s being built.
+      </p>
+
+      <div class="bg-white/90 backdrop-blur rounded-2xl p-6 md:p-8 shadow-[0_12px_35px_rgba(0,0,0,0.10)]">
+        <form
+  action="https://app.kit.com/forms/8877368/subscriptions"
+  method="post"
+  class="grid grid-cols-1 sm:grid-cols-3 gap-4"
+>
+  <label class="sr-only" for="first_name">First name</label>
+  <input
+    id="first_name"
+    name="fields[first_name]"
+    type="text"
+    placeholder="First name"
+    class="p-3 text-base rounded-lg border border-gray-300 focus:ring-primary focus:border-primary transition duration-200"
+    required
+  />
+
+  <label class="sr-only" for="email">Email address</label>
+  <input
+    id="email"
+    name="email_address"
+    type="email"
+    placeholder="Email address"
+    class="p-3 text-base rounded-lg border border-gray-300 focus:ring-primary focus:border-primary transition duration-200 sm:col-span-2"
+    required
+  />
+
+  <button
+    type="submit"
+    class="cta-primary bg-primary text-white font-bold py-3 px-8 rounded-lg text-base md:text-lg sm:col-span-3"
+  >
+    Get email updates
+  </button>
+</form>
+
+      </div>
+    </div>
+  </div>
+
+  
+</section>
+
+
+<footer class="bg-gray-100 text-gray-600 text-center py-12 md:py-16">
+<div class="flex justify-center space-x-6 mb-4">
+<a aria-label="YouTube" class="text-primary hover:text-primary-dark text-2xl social-icon-link" href="https://www.youtube.com/@TinkerMavens" target="_blank">
+<i class="fab fa-youtube"></i>
+</a>
+<a aria-label="Instagram" class="text-primary hover:text-primary-dark text-2xl social-icon-link" href="https://www.instagram.com/tinkermavens/" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+<a aria-label="Facebook" class="text-primary hover:text-primary-dark text-2xl social-icon-link" href="https://www.facebook.com/profile.php?id=61569021875571" target="_blank">
+<i class="fab fa-facebook-f"></i>
+</a>
+</div>
+<p class="text-sm">
+            © 2025 Tinker Mavens
+        </p>
+</footer>
+</body>
+</html>
